@@ -4,5 +4,5 @@ Rails.application.routes.draw do
     get 'things', to: 'things#index'
   end
   # Defines the root path route ("/")
-  # root "articles#index"
+  root "static#index"
 end
