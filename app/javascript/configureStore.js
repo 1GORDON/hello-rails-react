@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 
 import thunk from "redux-thunk";
 
@@ -7,31 +7,27 @@ import { GET_THINGS_SUCCESS } from "./components/HelloWorld";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const initialState = {
-    messages: [
-      {
-        name: "test",
-        guid: "123"
-      },
-    ],
+    messages: "test"
 };
 
-function rootReducer(state, action) {
+function rootReducer(state = initialState, action) {
   console.log(action.type);
   switch (action.type){
     case GET_THINGS_SUCCESS:
-      return { messages: action.json.messages };
+      return { messages: action.json.msg.name };
   }
   return state;
 }
 
+const reducers = combineReducers({
+  rootReducer
+});
+
 export default function configureStore(){
   const store = createStore(
-    rootReducer,
-    initialState,
-    composeWithDevTools(
-      applyMiddleware(
-        thunk
-      )
+    reducers,
+    applyMiddleware(
+      thunk
     )
   );
   return store;
