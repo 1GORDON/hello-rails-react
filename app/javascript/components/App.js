@@ -6,7 +6,8 @@ import { Provider } from "react-redux"
 
 import HelloWorld from './HelloWorld'
 
-import configureStore from "../configureStore"
+import configureStore from "../configureStore";
+
 const store = configureStore();
 
 class App extends React.Component {
@@ -15,8 +16,7 @@ class App extends React.Component {
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            <Route exact path="/" render={() => ("Home!")} />
-            <Route path="/hello" render={() => <HelloWorld greeting="Friend"/>}/>
+            <Route path="/" element={<HelloWorld />}/>
           </Routes>
         </BrowserRouter>
       </Provider>

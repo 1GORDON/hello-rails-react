@@ -1,47 +1,68 @@
 import React from "react"
+import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { List } from "semantic-ui-react";
 
-const GET_THINGS_REQUEST = 'GET_THINGS_REQUEST';
+export const GET_THINGS_REQUEST = "GET_THINGS_REQUEST";
+export const GET_THINGS_SUCCESS = "GET_THINGS_SUCCESS";
 
-function getThings(){
-  console.log('getThings() Action!!')
-  return {
-    type: GET_THINGS_REQUEST
+function getThings() {
+  return (dispatch) => {
+    dispatch({ type: GET_THINGS_REQUEST });
+    return fetch(`v1/messages.json`)
+      .then((response) => response.json())
+      .then((json) => dispatch(getThingsSuccess(json)))
+      .catch((error) => console.log(`Fetching Error ${error}`));
   };
-};
+}
+
+export function getThingsSuccess(json) {
+  return {
+    type: GET_THINGS_SUCCESS,
+    json,
+  };
+}
 
 class HelloWorld extends React.Component {
-  render () {
-    const { things } = this.props;
-    const thingsList = things.map((thing) => {
+  render() {
+    const { messages } = this.props;
+    const thingsList = [messages].map((message) => {
       return (
-        <List.Item>
-          <List.Icon name="arrow circle right" size="large" verticalAlign="middle">
+        <List.Item >
+          <List.Icon />
           <List.Content>
-            <List.Header as='a'>{thing.name}</List.Header>
-            <List.Description as='a'>{thing.guid}</List.Description>
+          <p>Greeting</p>
+            <List.Header as="a">{message.name}</List.Header>
+            <br />
           </List.Content>
-          </List.Icon>
         </List.Item>
       );
-    })
+    });
     return (
       <React.Fragment>
-        Greeting: {this.props.greeting}
-        <button className="getThingsBtn" onClick={() => this.props.getThings()}>getThings</button>
-        <br />
-        <ul>{ thingsList }</ul>
+        <div>
+          <button
+            onClick={() => this.props.getThings()}
+          >
+            Click To Change Greeting
+          </button>
+          <br />
+          <ul>{thingsList}</ul>
+        </div>
       </React.Fragment>
     );
   }
 }
 
 const structuredSelector = createStructuredSelector({
-  things: state => state.things,
+  messages: (state) => state.messages,
 });
 
 const mapDispatchToProps = { getThings };
+
+HelloWorld.propTypes = {
+  message: PropTypes.string,
+};
 
 export default connect(structuredSelector, mapDispatchToProps)(HelloWorld);
