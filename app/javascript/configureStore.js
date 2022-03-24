@@ -2,23 +2,26 @@ import { applyMiddleware, createStore } from "redux";
 
 import thunk from "redux-thunk";
 
+import { GET_THINGS_SUCCESS } from "./components/HelloWorld";
+
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const initialState = {
-    things: [
+    messages: [
       {
         name: "test",
         guid: "123"
-      }
-    ]
+      },
+    ],
 };
 
 function rootReducer(state, action) {
   console.log(action.type);
   switch (action.type){
-    default:
-      return state
+    case GET_THINGS_SUCCESS:
+      return { messages: action.json.messages };
   }
+  return state;
 }
 
 export default function configureStore(){
