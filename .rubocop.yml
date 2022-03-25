@@ -8,6 +8,7 @@ AllCops:
     - db/schema.rb
     - test/test_helper.rb
     - routes.rb
+    - .stylelintrc.json
 
   DisplayCopNames: true
 
