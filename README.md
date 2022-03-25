@@ -44,8 +44,6 @@ bundle install
 - rails s
 ```
 
-
-
 ### Prerequisites
 
 - react-redux
