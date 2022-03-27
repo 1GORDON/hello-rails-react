@@ -52,7 +52,7 @@ bundle install
 
 👤 **Tinyefuza (Godanah) Gordon** 
 
-- GitHub: [IGORDON](https://github.com/1GORDON)
+- GitHub: [1GORDON](https://github.com/1GORDON)
 - Twitter: [@TinyefuzaG](https://twitter.com/GTinyefuza) 
 - LinkedIn: [Tinyefuza-Gordon](https://www.linkedin.com/in/tinyefuza-gordon/)
 
